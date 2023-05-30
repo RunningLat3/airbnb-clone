@@ -70,15 +70,15 @@ model Listing {
 
 model Reservation {
   id         String   @id @default(auto()) @map("_id") @db.ObjectId
-  userId     String?  @map("user_id") @db.ObjectId
-  listingId  String?  @map("listing_id") @db.ObjectId
+  userId     String   @map("user_id") @db.ObjectId
+  listingId  String   @map("listing_id") @db.ObjectId
   startDate  DateTime @map("start_date")
   endDate    DateTime @map("end_date")
   totalPrice Int      @map("total_price")
   createdAt  DateTime @default(now()) @map("created_at")
 
-  user    User?    @relation(fields: [userId], references: [id], onDelete: Cascade)
-  listing Listing? @relation(fields: [listingId], references: [id], onDelete: Cascade)
+  user    User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  listing Listing @relation(fields: [listingId], references: [id], onDelete: Cascade)
 
   @@map("reservations")
 }

@@ -1,5 +1,6 @@
 import getCurrentUser from "../actions/getCurrentUser";
 import getFavoriteListings from "../actions/getFavoriteLitings";
+import ClientOnly from "../components/ClientOnly";
 
 import EmptyState from "../components/EmptyState";
 
@@ -11,25 +12,31 @@ const FavoritesPage = async () => {
 
   if (!currentUser)
     return (
-      <EmptyState
-        title="Unauthorized"
-        subtitle="Please login your airbnb account"
-      />
+      <ClientOnly>
+        <EmptyState
+          title="Unauthorized"
+          subtitle="Please login your airbnb account"
+        />
+      </ClientOnly>
     );
 
   if (favoriteListings.length === 0)
     return (
-      <EmptyState
-        title="No favorities found"
-        subtitle="Looks like you have no favorite listings"
-      />
+      <ClientOnly>
+        <EmptyState
+          title="No favorities found"
+          subtitle="Looks like you have no favorite listings"
+        />
+      </ClientOnly>
     );
 
   return (
-    <FavoritesClient
-      favoriteListings={favoriteListings}
-      currentUser={currentUser}
-    />
+    <ClientOnly>
+      <FavoritesClient
+        favoriteListings={favoriteListings}
+        currentUser={currentUser}
+      />
+    </ClientOnly>
   );
 };
 
